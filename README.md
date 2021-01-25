@@ -5,10 +5,8 @@ Repository for the paper "Efficient Self-Supervised Feature for Robust Robot Vis
 
 The feature detection and description network is built in an efficient manner following the practical guidelines of ShuffleNet V2. As illustrated in Fig. 1, the network consists of 2 basic units. Both units split the input tensor along the channel evenly first. The inverted residual unit applies the pointwise(1x1 Conv) and depthwise(3x3 DWConv) convolutional layers instead of normal convolutional layers to decrease the FLOPs. The Downsampling unit utilize the depthwise convolutional layers with stride = 2 to replace the pooling layer. The splited channels are concated after the convolution operations. Finally, the channel shuffle before the output provides extra receptive field for learning.
 
-<center>
-	<img src="./images/Units.png" alt="Units" style="zoom:50%;" />
-    <div>Fig. 1  Network Basic Units</div>
-</center>
+<img src="./images/Units.png" alt="Units" style="zoom:50%;" />
+<center>Fig. 1  Network Basic Units</center>
 
 ## Training Details
 The proposed network is trained by a 4-GTX1080Ti workstation. For initial training with the artificial corner dataset, the shared feature extractor and the keypoint branch are trained by Adam optimizer for 80 epochs. The batch size is set to 128, and the learning rate is set to 10E-4 with half decay for every 20 epochs. 
