@@ -1,6 +1,8 @@
 # ESS-SLAM
 Repository for the paper "Quantized Self-supervised Local Feature for Real-time Robot Indirect VSLAM". [In Proceeding]
 
+Please install the Google Chrome plugin **MathJax Plugin for Github** to display the formulas correctly.
+
 ## Network Architecture
 
 The feature detection and description network is built in an lightweight manner following the practical guidelines of ShuffleNet V2. As illustrated in Fig. 1, the network consists of 2 basic units. Both units split the input tensor along the channel evenly first. The inverted residual unit applies the pointwise(1x1 Conv) and depthwise(3x3 DWConv) convolutional layers instead of normal convolutional layers to decrease the FLOPs. The Downsampling unit utilize the depthwise convolutional layers with stride = 2 to replace the pooling layer. The splited channels are concated after the convolution operations. Finally, the channel shuffle before the output provides extra receptive field for learning.
@@ -11,12 +13,12 @@ The feature detection and description network is built in an lightweight manner 
 
 To reduce the latency of the network, the following operations are applied:
 1) Separable Convolution: This operation decomposes a standard convolutional layer into depthwise and pointwise convolutional layers, thus both parameter amount and FLOPs decreased significantly.
-2) Folded BN: Batch normalization makes the training process faster and more stable. Once the training is completed, BN layers can be regarded as a simple linear transformation and merged to the preceding layers like convolution and fully-connected layers decrease the latency. Given the long term mean  and standard deviation , the batch normalization is folded into the weight  and bias  of the preceding convolution layer as:
+2) Folded BN: Batch normalization makes the training process faster and more stable. Once the training is completed, BN layers can be regarded as a simple linear transformation and merged to the preceding layers like convolution and fully-connected layers decrease the latency. Given the long term mean $\mu$ and standard deviation $\delta$, the batch normalization is folded into the weight $\mathbf{W}$ and bias $\mathbf{B}$ of the preceding convolution layer as:
 $$
-W_f=\frac{\gamma W}{\delta}, B_f=\beta - \frac{\gamma \mu}{\delta}
+\mathbf{W}_f=\frac{\gamma \mathbf{W}}{\delta}, B_f=\beta - \frac{\gamma \mu}{\delta}
 $$
-where $W_f$ and $B_f$ denotes the weight and bias of the preceding convolutional layer with the BN layer folded.
-
+where $\mathbf{W}_f$ and $\mathbf{W}_f$ denotes the weight and bias of the preceding convolutional layer with the BN layer folded, $\gamma$ and $\beta$ denote the Batch Normalization parameters.
+3) Channel Shuffle: This operation helps information flow across feature channels in convolutional neural networks. It has been used in the ShuffleNet family. As a parameter-free layer, it provides the network with extra receptive domain without increasing the FLOPs.
 
 
 ## Training Details
