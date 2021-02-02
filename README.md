@@ -7,7 +7,7 @@ Please install the Google Chrome plugin **MathJax Plugin for Github** to display
 
 The feature detection and description network is built in an lightweight manner following the practical guidelines of ShuffleNet V2. As illustrated in Fig. 1, the network consists of 2 basic units. Both units split the input tensor along the channel evenly first. The inverted residual unit applies the pointwise(1x1 Conv) and depthwise(3x3 DWConv) convolutional layers instead of normal convolutional layers to decrease the FLOPs. The Downsampling unit utilize the depthwise convolutional layers with stride = 2 to replace the pooling layer. The splited channels are concated after the convolution operations. Finally, the channel shuffle before the output provides extra receptive field for learning.
 
-<img src="./images/Units.png" alt="Units" style="zoom:50%;" />
+<div align=center><img src="./images/Units.png" alt="Units" width="480" /></div>
 
 <center>Fig. 1  Network Basic Units</center>
 
