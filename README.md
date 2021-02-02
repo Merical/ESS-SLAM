@@ -9,7 +9,7 @@ The feature detection and description network is built in an lightweight manner 
 
 <div align=center><img src="./images/Units.png" alt="Units" width="480" /></div>
 
-<center>Fig. 1  Network Basic Units</center>
+<div align=center>Fig. 1  Network Basic Units</div>
 
 To reduce the latency of the network, the following operations are applied:
 1) Separable Convolution: This operation decomposes a standard convolutional layer into depthwise and pointwise convolutional layers, thus both parameter amount and FLOPs decreased significantly.
