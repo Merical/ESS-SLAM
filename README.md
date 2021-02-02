@@ -11,7 +11,7 @@ The feature detection and description network is built in an lightweight manner 
 
 <div align=center>Fig. 1  Network Basic Units</div>
 
-To reduce the latency of the network, the following operations are applied:
+To reduce the latency of the network, the following operations are applied in the network structure:
 1) Separable Convolution: This operation decomposes a standard convolutional layer into depthwise and pointwise convolutional layers, thus both parameter amount and FLOPs decreased significantly.
 2) Folded BN: Batch normalization makes the training process faster and more stable. Once the training is completed, BN layers can be regarded as a simple linear transformation and merged to the preceding layers like convolution and fully-connected layers decrease the latency. Given the long term mean $\mu$ and standard deviation $\delta$, the batch normalization is folded into the weight $\mathbf{W}$ and bias $\mathbf{B}$ of the preceding convolution layer as:
 $$
